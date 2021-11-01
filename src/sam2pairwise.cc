@@ -37,6 +37,12 @@ int main(int argc, char** argv)
 		clog << "1.0.0" << endl;
 		return 0;
 	}
+    
+	string known_mut;
+	if(argc == 3 && string(argv[1]) == "--mut")
+	{
+		known_mut = argv[2];
+	}
 
 	string input_string;
 	int pastheader = 0;
@@ -266,7 +272,11 @@ int main(int argc, char** argv)
 
 			if ( nonmatch_flag )
 			{
-				matches += ' ';
+				if (known_mut.size() > 0 && reference.substr(reference.size() - 1, 1) == known_mut.substr(0, 1) && read.substr(subpos, 1) == known_mut.substr(2, 1)) {
+					matches += '.';
+				} else {
+					matches += ' ';
+				}
 			}
 			else
 			{
